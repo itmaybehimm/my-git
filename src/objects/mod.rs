@@ -1,3 +1,4 @@
-mod blob;
-mod traits;
-mod types;
+pub mod blob;
+pub mod traits;
+pub mod tree;
+pub mod types;

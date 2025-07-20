@@ -5,11 +5,11 @@ mod tests {
     struct MockGitObject;
 
     impl GitObject for MockGitObject {
-        fn object_type(&self) -> &'static str {
+        fn get_object_type(&self) -> &'static str {
             "blob"
         }
 
-        fn content_bytes(&self) -> Vec<u8> {
+        fn get_content_bytes(&self) -> Vec<u8> {
             b"hello git".to_vec()
         }
     }
@@ -25,18 +25,21 @@ mod tests {
     }
 
     #[test]
-    fn test_hash_bytes() {
+    fn test_get_hash_bytes() {
         let obj = MockGitObject;
         let expected_bytes: [u8; 20] = hex::decode("f09e9c379f5fe8f4ce718641c356df87906d87a6")
             .unwrap()
             .try_into()
             .unwrap();
-        assert_eq!(obj.hash_bytes(), expected_bytes);
+        assert_eq!(obj.get_hash_bytes(), expected_bytes);
     }
 
     #[test]
-    fn test_hash_str() {
+    fn test_get_hash_str() {
         let obj = MockGitObject;
-        assert_eq!(obj.hash_str(), "f09e9c379f5fe8f4ce718641c356df87906d87a6");
+        assert_eq!(
+            obj.get_hash_str(),
+            "f09e9c379f5fe8f4ce718641c356df87906d87a6"
+        );
     }
 }
