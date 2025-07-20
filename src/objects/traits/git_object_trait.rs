@@ -1,20 +1,21 @@
+use crate::utils::get_sha1_hash;
 use hex::encode;
-use sha1::{Digest, Sha1};
+
 pub trait GitObject {
-    fn object_type(&self) -> &'static str;
-    fn content_bytes(&self) -> Vec<u8>;
+    fn get_object_type(&self) -> &'static str;
+    fn get_content_bytes(&self) -> Vec<u8>;
     fn serialize(&self) -> Vec<u8> {
-        let content = self.content_bytes();
-        let header = format!("{} {}\0", self.object_type(), content.len());
+        let content = self.get_content_bytes();
+        let header = format!("{} {}\0", self.get_object_type(), content.len());
         let mut data = header.into_bytes();
         data.extend_from_slice(&content);
         data
     }
-    fn hash_bytes(&self) -> [u8; 20] {
-        Sha1::digest(&self.serialize()).into()
+    fn get_hash_bytes(&self) -> [u8; 20] {
+        get_sha1_hash(&self.serialize())
     }
 
-    fn hash_str(&self) -> String {
-        encode(self.hash_bytes())
+    fn get_hash_str(&self) -> String {
+        encode(self.get_hash_bytes())
     }
 }
