@@ -11,4 +11,5 @@ flate2 = "1.1.2"
 sha1 = "0.10.6"
 
 [dev-dependencies]
-test-case = "*"
+tempfile = "3.20.0"
+mockall = "0.13.1"
