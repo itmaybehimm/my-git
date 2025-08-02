@@ -1,6 +1,8 @@
 use crate::objects::traits::GitObject;
 use crate::objects::types::ObjectType;
+use crate::utils::{Compressor, FileUtils};
 use hex::encode;
+
 pub struct Commit {
     pub tree: [u8; 20],
     pub parents: Vec<[u8; 20]>,
@@ -13,6 +15,9 @@ pub struct Commit {
     pub committer_time: i64,
     pub committer_tz: String,
     pub message: String,
+
+    pub compressor: Box<dyn Compressor>,
+    pub file_utils: Box<dyn FileUtils>,
 }
 
 impl GitObject for Commit {
@@ -46,5 +51,13 @@ impl GitObject for Commit {
         content.extend(self.message.as_bytes());
 
         content
+    }
+
+    fn get_compressor(&self) -> &dyn Compressor {
+        self.compressor.as_ref()
+    }
+
+    fn get_file_utils(&self) -> &dyn FileUtils {
+        self.file_utils.as_ref()
     }
 }

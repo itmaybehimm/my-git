@@ -1,5 +1,6 @@
 use crate::objects::traits::GitObject;
 use crate::objects::types::{EntryMode, ObjectType};
+use crate::utils::{Compressor, FileUtils};
 
 pub struct TreeEntry {
     pub mode: EntryMode,
@@ -9,6 +10,8 @@ pub struct TreeEntry {
 
 pub struct Tree {
     pub entries: Vec<TreeEntry>,
+    pub compressor: Box<dyn Compressor>,
+    pub file_utils: Box<dyn FileUtils>,
 }
 
 impl GitObject for Tree {
@@ -27,13 +30,17 @@ impl GitObject for Tree {
 
         out
     }
+
+    fn get_compressor(&self) -> &dyn Compressor {
+        self.compressor.as_ref()
+    }
+
+    fn get_file_utils(&self) -> &dyn FileUtils {
+        self.file_utils.as_ref()
+    }
 }
 
 impl Tree {
-    pub fn new(entries: Vec<TreeEntry>) -> Self {
-        Tree { entries }
-    }
-
     pub fn add_entry(&mut self, entry: TreeEntry) {
         self.entries.push(entry);
     }
