@@ -8,7 +8,7 @@ pub struct TreeEntry {
 }
 
 pub struct Tree {
-    entries: Vec<TreeEntry>,
+    pub entries: Vec<TreeEntry>,
 }
 
 impl GitObject for Tree {
@@ -36,9 +36,5 @@ impl Tree {
 
     pub fn add_entry(&mut self, entry: TreeEntry) {
         self.entries.push(entry);
-    }
-
-    pub fn get_entries(&self) -> &[TreeEntry] {
-        &self.entries
     }
 }

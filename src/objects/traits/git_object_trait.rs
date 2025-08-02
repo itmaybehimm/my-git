@@ -11,6 +11,7 @@ pub trait GitObject {
         data.extend_from_slice(&content);
         data
     }
+    
     fn get_hash_bytes(&self) -> [u8; 20] {
         get_sha1_hash(&self.serialize())
     }

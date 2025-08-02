@@ -3,7 +3,7 @@ use crate::objects::types::ObjectType;
 
 pub struct Blob {
     object_type: ObjectType,
-    content: Vec<u8>,
+    pub content: Vec<u8>,
 }
 
 impl Blob {

@@ -1,2 +1,4 @@
-pub mod mock_hash;
-pub mod mock_tree_entry;
+
+mod mock_tree_entry;
+
+pub use mock_tree_entry::mock_tree_entry;

@@ -18,6 +18,8 @@ mod tests {
     fn test_serialize() {
         let obj = MockGitObject;
 
+        assert_eq!(obj.serialize(), b"blob 9\0hello git");
+
         assert_eq!(
             obj.serialize(),
             [98, 108, 111, 98, 32, 57, 0, 104, 101, 108, 108, 111, 32, 103, 105, 116,].to_vec()
